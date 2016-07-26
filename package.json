@@ -25,14 +25,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Tremendous-Thumb/Hotspot.git"
+    "url": "git+https://github.com/garrulousmonkeys/Hotspot.git"
   },
-  "author": "Tremendous-Thumb",
+  "author": "Garrulous-Monkeys",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Tremendous-Thumb/Hotspot/issues"
+    "url": "https://github.com/garrulousmonkeys/Hotspot/issues"
   },
-  "homepage": "https://github.com/Tremendous-Thumb/Hotspot#readme",
+  "homepage": "https://github.com/garrulousmonkeys/Hotspot#readme",
   "dependencies": {
     "babel-cli": "^6.10.1",
     "babel-core": "^6.10.4",

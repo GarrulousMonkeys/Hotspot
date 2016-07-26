@@ -29,5 +29,5 @@ apiRoutes(app);
 
 // start the server
 app.listen(port, () => {
-  console.log('server started on port');
+  console.log('server started on port' + port);
 });

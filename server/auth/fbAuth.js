@@ -4,7 +4,8 @@ import passport from 'passport';
 const FB = {
   APP_ID: process.env.FACEBOOK_APP_ID || 0,
   APP_SECRET: process.env.FACEBOOK_APP_SECRET || 0,
-  CALLBACK: 'https://hotspot-app.herokuapp.com/auth/facebook/callback'
+  //old CALLBACK: 'https://hotspot-app.herokuapp.com/auth/facebook/callback'
+  CALLBACK: 'https://peaceful-inlet-24252.herokuapp.com/auth/facebook/callback'
 };
 
 console.log(FB);
