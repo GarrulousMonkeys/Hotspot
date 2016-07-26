@@ -129,7 +129,7 @@ export function clickLocationSubmit(name, latitude, longitude, rating) {
   // Add type and image from returned request
   console.log('new spot', spotToAdd);
   // const data = request.post(endpoints.spots).send(spotToAdd).end();
-  const data = request.post(endpoints.spots).send(spotToAdd);
+  const data = $.post(endpoints.spots, spotToAdd);
   console.log('sending data', data);
 
   return {
