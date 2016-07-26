@@ -12,7 +12,6 @@ import apiRoutes from './routes/apiRoutes';
 const app = express();
 const port = process.env.PORT || 8732;
 
-console.log('User', User);
 // Server and auth configuration
 localAuthConfig(User);
 facebookAuthConfig(User);
@@ -29,5 +28,5 @@ apiRoutes(app);
 
 // start the server
 app.listen(port, () => {
-  console.log('server started on port' + port);
+  console.log('server started on port ' + port);
 });
