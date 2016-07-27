@@ -58,6 +58,7 @@ export default function(app) {
   });
 
   app.post('/api/spots', (req, res) => {
+    console.log('testing inside post');
     Spot.create(req.body)
       .then((spot) => {
         return SpotsUsers.create({userid: req.user.id, spotid: spot[0].id});

@@ -1,12 +1,5 @@
-import request from 'superagent';
 import _ from 'lodash';
-import $ from 'jquery';
-import Promise from 'bluebird';
-
-const endpoints = {
-  logout: '/logout',
-  spots: '/api/spots'
-};
+import req from 'axios';
 
 export const NAV_CLICK_COLLECTION = 'NAV_CLICK_COLLECTION';
 export const NAV_CLICK_FILTER = 'NAV_CLICK_FILTER';
@@ -25,7 +18,6 @@ export function toggleCollectionList(panelMode, isOpen) {
     panelMode = 'collection';
     isOpen = true;
   }
-
 
   return {
     type: NAV_CLICK_COLLECTION,
@@ -46,7 +38,6 @@ export function toggleFilterList(panelMode, isOpen) {
     panelMode = 'filter';
     isOpen = true;
   }
-
 
   return {
     type: NAV_CLICK_FILTER,
@@ -102,20 +93,21 @@ export function closeCollectionItem(item) {
   };
 }
 
-export function deleteCollectionItem(item) {
-  // delete the collection item from the db
-  const collection = request.del(endpoints.spots + '/' + item.id);
-  // update the collection and filters
-  const filters = filterOrganizer(collection);
+// NOTE: Not in use
+// export function deleteCollectionItem(item) {
+//   // delete the collection item from the db
+//   const collection = req.del(endpoints.spots + '/' + item.id);
+//   // update the collection and filters
+//   const filters = filterOrganizer(collection);
 
-  return {
-    type: PANEL_DELETE_COLLECTION_ITEM,
-    payload: {
-      collection: collection.slice(),
-      filters: filters.slice()
-    }
-  };
-}
+//   return {
+//     type: PANEL_DELETE_COLLECTION_ITEM,
+//     payload: {
+//       collection: collection.slice(),
+//       filters: filters.slice()
+//     }
+//   };
+// }
 
 export function clickLocationSubmit(name, latitude, longitude, rating) {
   // Create object to make DB query
@@ -127,8 +119,7 @@ export function clickLocationSubmit(name, latitude, longitude, rating) {
   };
 
   // Add type and image from returned request
-  // const data = request.post(endpoints.spots).send(spotToAdd).end();
-  const data = $.post(endpoints.spots, spotToAdd);
+  const data = req.post('/api/spots', spotToAdd);
 
   return {
     type: MAP_CONFIRM_POINT,
@@ -140,7 +131,7 @@ export function clickLocationSubmit(name, latitude, longitude, rating) {
 export function fetchCollection() {
   // This function should only be called once on startup
   // Query database for user's entire collection
-  const collection = request.get(endpoints.spots);
+  const collection = req.get('/api/spots');
 
   return {
     type: FETCH_COLLECTION,
@@ -162,29 +153,4 @@ export function createFilters(collection, filters) {
     type: CREATE_FILTERS,
     payload: filters
   }
-}
-
-function makePostRequest(endpoint, data) {
-  return new Promise((resolve, reject) => {
-    request.post(endpoint)
-      .send(data)
-      .end((err, res) => {
-        if (err) {
-          return reject(err);
-        }
-        return resolve(res);
-      });
-  });
-}
-
-function makeGetRequest(endpoint) {
-  return new Promise((resolve, reject) => {
-    request.get(endpoint)
-      .end((err, res) => {
-        if (err) {
-          return reject(err);
-        }
-        return resolve(res);
-      });
-  });
 }
