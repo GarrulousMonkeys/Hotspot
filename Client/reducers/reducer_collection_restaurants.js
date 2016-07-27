@@ -6,6 +6,8 @@ const initialState = {
 };
 
 export default function(state = initialState, action) {
+  console.log(action);
+
   switch (action.type) {
     case MAP_CONFIRM_POINT:
       return {
@@ -15,7 +17,7 @@ export default function(state = initialState, action) {
     case FETCH_COLLECTION:
       return {
         ...state,
-        collection: action.payload.body.data
+        collection: action.payload.data.data
       };
     default:
       return state;
