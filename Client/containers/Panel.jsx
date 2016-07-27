@@ -38,7 +38,6 @@ class Panel extends React.Component {
           key={restaurant.name}/>);
       });
     }
-    console.log(panelItems);
     return (
       <Menu id={ 'panel' }
             right

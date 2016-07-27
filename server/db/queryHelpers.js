@@ -21,7 +21,6 @@ export const createInsertQuery = function (schema, objToInsert) {
       return `${values}, ${typeWrapper(objToInsert[key] || null, val)}`;
     }, ''))
     .concat(') returning *');
-  console.log(`${query} ${columns} ${values}`);
   return `${query} ${columns} ${values}`;
 };
 
@@ -44,7 +43,6 @@ export const createSelectQuery = function(schema, findObj) {
     i++;
     return `${params} ${key} = ${typeWrapper(val, schema.columns[key])} or`;
   }, '')
-  console.log(`${query} ${params}`);
   return `${query} ${params}`
 };
 

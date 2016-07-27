@@ -8,7 +8,6 @@ const FB = {
   CALLBACK: 'https://peaceful-inlet-24252.herokuapp.com/auth/facebook/callback'
 };
 
-console.log(FB);
 export const facebookAuthConfig = function(User) {
   passport.use(new FacebookStrategy({
     clientID: FB.APP_ID,
@@ -24,7 +23,6 @@ export const facebookAuthConfig = function(User) {
         facebookAccessToken: accessToken
       })
       .then((user) => {
-        console.log('got it!');
         return done(null, user);
       })
       .catch((err) => done(err, null));
