@@ -7,7 +7,6 @@ export default function(User) {
     passwordField: 'password',
     passReqToCallback: true
   }, function(req, username, password, done) {
-    console.log('sign them up!', username, password);
     if (!req.user) {
       User.findOrCreate({
         username: username,
@@ -26,11 +25,9 @@ export default function(User) {
     passwordField: 'password',
     passReqToCallback: true
   }, function(req, username, password, done) {
-    console.log('checking username', username);
     let foundUser;
     return User.find({username: username})
       .then((user) => {
-        console.log('checking username and password for ', user);
         if (user.length === 0) {
           return [false, user[0]];
         } else {
@@ -39,7 +36,6 @@ export default function(User) {
         }
       })
       .then((match) => {
-        console.log('match', match, 'user', foundUser);
         if (match) {
           return done(null, foundUser);
         } else {

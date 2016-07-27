@@ -15,8 +15,7 @@ export default function(app) {
         username: 'defaultUser'
       };
     }
-    console.log('user', req.user);
-    Spot.getAllForUser(req.user)
+    Spot.getAllSpots()
       .then((spots) => {
         if (spots.length === 0) {
           spotsReturn = [];
@@ -29,7 +28,6 @@ export default function(app) {
         }));
       })
       .then((yelpResults) => {
-        console.log('yelpresults looking for busid location', yelpResults);
         if (yelpResults.length === 0) {
           return [];
         }
@@ -38,7 +36,6 @@ export default function(app) {
             let lowerLength = Math.min([spot.length, result.length]);
             return result.name.indexOf(spot.name.slice(lowerLength)) !== -1;
           });
-          console.log('yelp stuff', match);
           if (match.length === 0) {
             spot.yelpData = {
               cuisine: null,
@@ -63,7 +60,6 @@ export default function(app) {
   app.post('/api/spots', (req, res) => {
     Spot.create(req.body)
       .then((spot) => {
-        console.log('insert spot ', spot[0], 'with user id', req.user);
         return SpotsUsers.create({userid: req.user.id, spotid: spot[0].id});
       })
       .then((spotuser) => sendBackJSON(res, req.body, 'created new spot'))

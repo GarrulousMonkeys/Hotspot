@@ -19,7 +19,6 @@ export default function(app, User) {
 
   passport.serializeUser(function(user, done) {
     let userId;
-    console.log('serialize user', user);
     if (Array.isArray(user)) {
       userId = user[0].id;
     } else {
@@ -29,7 +28,6 @@ export default function(app, User) {
   });
 
   passport.deserializeUser(function(id, done) {
-    console.log('deserialize');
     return User.find({id: id})
       .then((user) => done(null, user[0]))
       .catch((err) => done(err, null));
@@ -46,7 +44,6 @@ export default function(app, User) {
   app.use(express.static(path.join(__dirname, '/../node_modules')));
   app.use(express.static(path.join(__dirname, '/../Client')));
   app.use(express.static(path.join(__dirname, './views')));
-  console.log(path.join(__dirname, '/../compiled'));
   app.use(session({
     secret: 'keyboard cat',
     saveUninitialized: true,

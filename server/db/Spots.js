@@ -28,6 +28,14 @@ class Spot extends DB {
       .then((results) => results.map((result) => result[0]))
       .catch((err) => console.log(err));
   }
+
+  getAllSpots() {
+    return this.getAll()
+      .then((data) => {
+        return Promise.all(data);
+      })
+      .catch((err) => console.log(err));
+  }
 }
 
 export default new Spot(dbConnection, spotSchema);

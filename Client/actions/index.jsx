@@ -127,10 +127,8 @@ export function clickLocationSubmit(name, latitude, longitude, rating) {
   };
 
   // Add type and image from returned request
-  console.log('new spot', spotToAdd);
   // const data = request.post(endpoints.spots).send(spotToAdd).end();
   const data = $.post(endpoints.spots, spotToAdd);
-  console.log('sending data', data);
 
   return {
     type: MAP_CONFIRM_POINT,
@@ -167,7 +165,6 @@ export function createFilters(collection, filters) {
 }
 
 function makePostRequest(endpoint, data) {
-  console.log('making post request');
   return new Promise((resolve, reject) => {
     request.post(endpoint)
       .send(data)
@@ -181,7 +178,6 @@ function makePostRequest(endpoint, data) {
 }
 
 function makeGetRequest(endpoint) {
-  console.log('making get request');
   return new Promise((resolve, reject) => {
     request.get(endpoint)
       .end((err, res) => {
