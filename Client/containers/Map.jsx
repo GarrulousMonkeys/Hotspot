@@ -27,7 +27,6 @@ class Map extends React.Component {
   }
 
   renderMap() {
-    console.log('lmapbox', L.mapbox);
     mainMap = L.mapbox.map('map-one', 'mapbox.streets')
       .setView(defaultCoord, 16);
 
@@ -63,15 +62,12 @@ class Map extends React.Component {
       marker.bindPopup(content);
     });
     let collection = this.props.totalCollection;
-    console.log('total collection', this.props.totalCollection);
     // If any filters have been selected and a filtered collection
     // exists, send that into the map instead
     if (this.props.filteredCollection.length > 0) {
       collection = this.props.filteredCollection;
     }
-    console.log('set geojson on', restaurantPoints, 'with', collection);
     const formattedPoints = formatGeoJSON(collection);
-    console.log('formatted points are', formattedPoints);
     restaurantPoints.setGeoJSON(formatGeoJSON(collection));
   }
 
@@ -189,7 +185,6 @@ var geoJSONSet = () => {
 ////////// HELPER FUNCTIONS - TODO MODULARIZE //////////
 function formatGeoJSON(array) {
   const geoPointArray = array.map((spot) => {
-    console.log('spot is', spot);
     let ratingImg = spot.rating === '5' ? thumbUp : thumbDown;
     return geoJSONPoint(spot.longitude, spot.latitude, spot.name, ratingImg, spot.yelpData.image);
   });
@@ -233,10 +228,8 @@ var geoSuccess = (position) => {
 
 // Helpers to handle search results
 var foundRestaurant = (res) => {
-  console.log('found a place', res, res.feature.text, res.feature.center); // -122, 33 long / lat
   var pointQuery = L.mapbox.featureLayer().addTo(mainMap);
   pointQuery.on('layeradd', function(point) {
-    console.log('actions', Actions);
     var marker = point.layer;
     var feature = marker.feature;
     marker.setIcon(L.icon(feature.properties.icon));
