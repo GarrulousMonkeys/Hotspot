@@ -47,7 +47,46 @@ export default function(app) {
           return spot;
         });
       })
-      .then((augmentedSpots) => sendBackJSON(res, augmentedSpots, 'got all spots'))
+      .then((augmentedSpots) => {
+        var uniqueAugmentedSpots = [];
+        var uniqueSpotIDs = [];
+
+        var latitudes = _.map(augmentedSpots, 'latitude');
+        var names = _.map(augmentedSpots, 'name');
+
+        //create array of unique identifier for spots (latitude + name)
+        var spotIDs = _.map(latitudes, (latitude, index) => {
+          return latitude.toString() + names[index];
+        });
+
+        _.each(augmentedSpots, (spot) => {
+
+          var spotCount = 0;
+          var ratingSum = 0;
+          var spotID = spot.latitude.toString() + spot.name;
+
+          //check if this spot is in the unique list yet
+          if (uniqueSpotIDs.indexOf(spotID) === -1) {
+            uniqueSpotIDs.push(spotID);
+
+            //compare this spot against all spots to compute average rating
+            _.each(augmentedSpots, (spotCompare) => {
+              if(spot.name === spotCompare.name && spot.latitude === spotCompare.latitude) {
+                spotCount++;
+                ratingSum += Number(spotCompare.rating);
+              }
+            });
+
+            var averageRating = ratingSum / spotCount;
+
+            spot.rating = averageRating;
+
+            uniqueAugmentedSpots.push(spot);
+          }
+        });
+
+        sendBackJSON(res, uniqueAugmentedSpots, 'got all spots');
+      })
       .catch((err) => console.log(err));
   });
 

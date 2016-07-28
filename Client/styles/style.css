@@ -49,3 +49,8 @@ nav.navbar {
   border-bottom: 5px solid #87b;
   height: 70px;
 }
+
+.thumb-class {
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
