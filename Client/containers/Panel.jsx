@@ -10,9 +10,9 @@ const Menu = require('react-burger-menu').slide;
 
 class Panel extends React.Component {
 
-  componentDidMount() {
-    this.props.actions.fetchCollection();
-  }
+  // componentDidMount() {
+  //   this.props.actions.fetchCollection();
+  // }
 
   render() {
     let panelItems;

@@ -22,7 +22,6 @@ var CollectionModel = ({item}) => {
     </ul>
   </div>
 );
-  console.log(here);
 };
 
 
