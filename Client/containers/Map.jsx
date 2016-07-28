@@ -9,11 +9,24 @@ let defaultCoord = [37.784005, -122.401551]; //(Moscone Center)
 //let defaultCoord = [37.8043700, -122.2708000]; //(Oakland)
 let mainMap;
 let restaurantPoints;
-let thumbDown = 'http://emojipedia-us.s3.amazonaws.com/cache/8f/32/8f32d2d9cdc00990f5d992396be4ab5a.png';
-let thumbUp = 'http://emojipedia-us.s3.amazonaws.com/cache/79/bb/79bb8226054d3b254d3389ff8c9fe534.png';
+//let thumbDown = 'http://emojipedia-us.s3.amazonaws.com/cache/8f/32/8f32d2d9cdc00990f5d992396be4ab5a.png';
+//let thumbUp = 'http://emojipedia-us.s3.amazonaws.com/cache/79/bb/79bb8226054d3b254d3389ff8c9fe534.png';
 let fistBump = 'http://emojipedia-us.s3.amazonaws.com/cache/2c/08/2c080d6b97f0416f9d914718b32a2478.png';
 let waitingImage = 'http://img4.wikia.nocookie.net/__cb20140321012355/spiritedaway/images/1/1f/Totoro.gif';
 
+let thumbUp = '/../component/map/assets/thumbup.png';
+let thumbDown = '/../component/map/assets/thumbdown.png';
+let thumbSide = '/../component/map/assets/thumbside.png';
+let thumbUpLeft = '/../component/map/assets/thumbupleft.png';
+let thumbDownLeft = '/../component/map/assets/thumbdownleft.png';
+
+let thumbs = {
+  1: '/../component/map/assets/thumbdown.png',
+  2: '/../component/map/assets/thumbdownleft.png',
+  3: '/../component/map/assets/thumbside.png',
+  4: '/../component/map/assets/thumbupleft.png',
+  5: '/../component/map/assets/thumbup.png'
+};
 
 class Map extends React.Component {
   constructor(props) {
@@ -22,7 +35,6 @@ class Map extends React.Component {
   }
 
   componentDidMount() {
-    console.log('componentDidMount');
     this.props.actions.fetchCollection()
       .then((results) => {
         this.renderMap();
@@ -35,8 +47,6 @@ class Map extends React.Component {
   }
 
   componentWillUpdate() {
-    console.log('componentWillUpdate');
-    console.log(restaurantPoints);
     mainMap.removeLayer(restaurantPoints);
     this.addPointsLayer();
   }
@@ -96,13 +106,17 @@ class Map extends React.Component {
       collection = this.props.filteredCollection;
     }
 
-    //
     restaurantPoints.setGeoJSON(this.formatGeoJSON(collection));
   }
 
   formatGeoJSON(array) {
     const geoPointArray = array.map((spot) => {
-      let ratingImg = spot.rating === '5' ? thumbUp : thumbDown;
+
+      //Compute integer rating
+      let ratingInt = Math.max(Math.round(spot.rating), 1);
+
+      //let ratingImg = spot.rating === '5' ? thumbUp : thumbDown;
+      let ratingImg = thumbs[ratingInt];
       return this.geoJSONPoint(spot.longitude, spot.latitude, spot.name, ratingImg, spot.yelpData.image);
     });
     return [
@@ -175,12 +189,10 @@ class Map extends React.Component {
     });
   };
 
-
   render() {
     return <div className='map' id='map-one'></div>;
   }
 }
-
 
 // Redux Functions
 function mapStateToProps(state) {
@@ -198,6 +210,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);
-
-
-

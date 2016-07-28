@@ -8,9 +8,11 @@ const typeWrapper = function(thing, type){
 
 export const createInsertQuery = function (schema, objToInsert) {
   let query = `insert into ${schema.tableName}`;
+  console.log('query',query);
   let columns = '('.concat(_
     .reduce(Object.keys(schema.columns), (columns, val) => `${columns}, ${val}`), '')
     .concat(')');
+  console.log('columns',columns);
   let initial = true;
   let values = 'values ('.concat(_
     .reduce(schema.columns, (values, val, key) => {
@@ -21,6 +23,7 @@ export const createInsertQuery = function (schema, objToInsert) {
       return `${values}, ${typeWrapper(objToInsert[key] || null, val)}`;
     }, ''))
     .concat(') returning *');
+  console.log('columns',values);
   return `${query} ${columns} ${values}`;
 };
 
