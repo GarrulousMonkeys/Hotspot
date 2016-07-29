@@ -1,4 +1,5 @@
 import Spot from '../db/Spots';
+import User from '../db/Users';
 import SpotsUsers from '../db/spotsUsersJoin';
 import { sendBackJSON } from '../db/queryHelpers';
 import {requestMultipleYelp, generateYelpNewBusParam} from '../yelp/yelpQuery';
@@ -17,6 +18,7 @@ export default function(app) {
     }
     Spot.getAllSpots()
       .then((spots) => {
+        // console.log(req);
         if (spots.length === 0) {
           spotsReturn = [];
           // return sendBackJSON(res, [], 'no spots');
@@ -44,7 +46,7 @@ export default function(app) {
           } else {
             spot.yelpData = match[0];
           }
-          console.log(spot);
+          spot.username = req.user.username;
           return spot;
         });
       })
@@ -81,6 +83,7 @@ export default function(app) {
             var averageRating = ratingSum / spotCount;
 
             spot.rating = averageRating;
+            spot.username = req.user.username;
 
             uniqueAugmentedSpots.push(spot);
           }
@@ -98,10 +101,10 @@ export default function(app) {
   });
 
   app.post('/api/spots', (req, res) => {
-    console.log('testing inside post');
+    console.log(req);
     Spot.create(req.body)
       .then((spot) => {
-        return SpotsUsers.create({userid: req.user.id, spotid: spot[0].id});
+        return SpotsUsers.create({userid: req.user.id, username: req.user.username, spotid: spot[0].id});
       })
       .then((spotuser) => sendBackJSON(res, req.body, 'created new spot'))
       .catch((err) => {
