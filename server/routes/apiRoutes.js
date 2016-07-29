@@ -44,6 +44,7 @@ export default function(app) {
           } else {
             spot.yelpData = match[0];
           }
+          console.log(spot);
           return spot;
         });
       })
