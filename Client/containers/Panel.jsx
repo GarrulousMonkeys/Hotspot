@@ -39,7 +39,6 @@ class Panel extends React.Component {
           key={restaurant.name}/>);
       });
     }
-    // console.log('PROPS -- ', this.props.totalCollection);
     return (
       <Menu id={ 'panel' }
             right
@@ -55,7 +54,6 @@ class Panel extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log(typeof state.User.User);
   return {
     totalCollection: state.CollectionRestaurantsFilters.collection,
     filters: state.FilterSelectedRestaurants.filters,

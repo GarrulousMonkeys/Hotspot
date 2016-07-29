@@ -83,6 +83,7 @@ export default function(app) {
             var averageRating = ratingSum / spotCount;
 
             spot.rating = averageRating;
+            spot.username = req.user.username;
 
             uniqueAugmentedSpots.push(spot);
           }
