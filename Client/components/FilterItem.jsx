@@ -2,7 +2,7 @@ import React from 'react';
 
 // The contets will be dependant on the form the information takes
 var FilterItem = ({filter, appliedFilters, toggleFilter, collection}) => {
-  var cssClasses = 'btn btn-default btn-sm';
+  var cssClasses = 'filter-item';
   if (_.findIndex(appliedFilters, (o) => { return o === filter }) > -1) {
     cssClasses += ' active';
   }

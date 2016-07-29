@@ -92,10 +92,10 @@ class Map extends React.Component {
     // Handle for when layer is added
     restaurantPoints.on('layeradd', (point) => {
       let marker = point.layer;
-      let content = `<h2>${marker.feature.properties.title}</h2>
+      let content = `<div class='popup-info'><h2>${marker.feature.properties.title}</h2>
                       <img src="${marker.feature.properties.image}" alt="" />
                       <p>Neighborhood: ${marker.feature.properties.neighborhood}</p>
-                      <p>What people think: "${marker.feature.properties.text}"</p>`
+                      <p>What people think: "${marker.feature.properties.text}"</p></div>`
 
       // Sets the thumbs as the icon
       marker.setIcon(L.icon(marker.feature.properties.icon));
