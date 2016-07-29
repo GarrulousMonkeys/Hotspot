@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as Actions from '../actions';
-
-var token = require('../token')
+import token from '../token';
 
 // MapBox Variables
 
@@ -15,6 +14,7 @@ let defaultCoord = [37.784005, -122.401551]; //(Moscone Center)
 //let defaultCoord = [37.8043700, -122.2708000]; //(Oakland)
 let mainMap;
 let restaurantPoints;
+let pointQuery;
 //let thumbDown = 'http://emojipedia-us.s3.amazonaws.com/cache/8f/32/8f32d2d9cdc00990f5d992396be4ab5a.png';
 //let thumbUp = 'http://emojipedia-us.s3.amazonaws.com/cache/79/bb/79bb8226054d3b254d3389ff8c9fe534.png';
 let fistBump = 'http://emojipedia-us.s3.amazonaws.com/cache/2c/08/2c080d6b97f0416f9d914718b32a2478.png';
@@ -43,15 +43,19 @@ class Map extends React.Component {
   }
 
   shouldComponentUpdate() {
-    return restaurantPoints !== undefined;
+    return restaurantPoints !== undefined && pointQuery !== undefined; 
   }
 
   componentWillUpdate() {
-    mainMap.removeLayer(restaurantPoints);
-    this.addPointsLayer();
+    setTimeout(()=> {
+      mainMap.removeLayer(restaurantPoints);
+      mainMap.removeLayer(pointQuery);
+      this.addPointsLayer();
+    },0);
   }
 
   renderMap() {
+
     // Creates base map layer
     mainMap = L.mapbox.map('map-one', 'cpwalker.h2ec4f4i')
       .setView(defaultCoord, 13);
@@ -82,7 +86,6 @@ class Map extends React.Component {
   }
 
   addPointsLayer() {
-    
     // Creates new layer for markers
     restaurantPoints = L.mapbox.featureLayer().addTo(mainMap);
 
@@ -154,7 +157,7 @@ class Map extends React.Component {
   };
 
   foundRestaurant(res) {
-    let pointQuery = L.mapbox.featureLayer().addTo(mainMap);
+    pointQuery = L.mapbox.featureLayer().addTo(mainMap);
     
     pointQuery.on('layeradd', (point) => {
       let marker = point.layer;
@@ -191,12 +194,15 @@ class Map extends React.Component {
 
       let rating;
       radios[0].checked === true ? rating = 5 : rating = 0;
-      Actions.clickLocationSubmit(res.feature.text, coordinates[1], coordinates[0], rating);
+      this.props.actions.clickLocationSubmit(res.feature.text, coordinates[1], coordinates[0], rating);
+      mainMap.closePopup();
     });
   };
 
   render() {
-    return <div className='map' id='map-one'></div>;
+    return (
+      <div className='map' id='map-one'></div>
+    );
   }
 }
 
