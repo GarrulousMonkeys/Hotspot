@@ -3,8 +3,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as Actions from '../actions';
 
+var token = require('../token')
+
 // MapBox Variables
-L.mapbox.accessToken = 'pk.eyJ1Ijoicm1jY2hlc24iLCJhIjoiY2lxbHkxbXFiMDA5dWZubm5mNWkwdGYwbiJ9.QC1lP-2tNymbJ5tHaMugZw';
+
+//Ryan's access token below:
+//L.mapbox.accessToken = 'pk.eyJ1IjoiY3B3YWxrZXIiLCJhIjoiOWNjQUpDVSJ9.nI3OoM0N6iIVv5GlhYBxoA';
+L.mapbox.accessToken = token;
+
 let defaultCoord = [37.784005, -122.401551]; //(Moscone Center)
 //let defaultCoord = [37.8043700, -122.2708000]; //(Oakland)
 let mainMap;
@@ -13,12 +19,6 @@ let restaurantPoints;
 //let thumbUp = 'http://emojipedia-us.s3.amazonaws.com/cache/79/bb/79bb8226054d3b254d3389ff8c9fe534.png';
 let fistBump = 'http://emojipedia-us.s3.amazonaws.com/cache/2c/08/2c080d6b97f0416f9d914718b32a2478.png';
 let waitingImage = 'http://img4.wikia.nocookie.net/__cb20140321012355/spiritedaway/images/1/1f/Totoro.gif';
-
-let thumbUp = '/../component/map/assets/thumbup.png';
-let thumbDown = '/../component/map/assets/thumbdown.png';
-let thumbSide = '/../component/map/assets/thumbside.png';
-let thumbUpLeft = '/../component/map/assets/thumbupleft.png';
-let thumbDownLeft = '/../component/map/assets/thumbdownleft.png';
 
 let thumbs = {
   1: '/../component/map/assets/thumbdown.png',
@@ -53,7 +53,7 @@ class Map extends React.Component {
 
   renderMap() {
     // Creates base map layer
-    mainMap = L.mapbox.map('map-one', 'mapbox.streets')
+    mainMap = L.mapbox.map('map-one', 'cpwalker.h2ec4f4i')
       .setView(defaultCoord, 13);
 
     // Creates seachbar

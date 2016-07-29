@@ -19,6 +19,7 @@ node_modules/
 ## API KEYS ##
 auth/fb.js
 config
+Client/token.js
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
