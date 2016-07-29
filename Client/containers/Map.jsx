@@ -108,7 +108,6 @@ class Map extends React.Component {
       collection = this.props.filteredCollection;
     }
 
-    console.log(collection);
 
     restaurantPoints.setGeoJSON(this.formatGeoJSON(collection));
   }
@@ -121,7 +120,8 @@ class Map extends React.Component {
 
       //let ratingImg = spot.rating === '5' ? thumbUp : thumbDown;
       let ratingImg = thumbs[ratingInt];
-      return this.geoJSONPoint(spot.longitude, spot.latitude, spot.name, ratingImg, spot.yelpData.image, spot.yelpData.text, spot.yelpData.neighborhoods[0]);
+      let neighborhood = spot.yelpData.neighborhoods ? spot.yelpData.neighborhoods[0] : '';
+      return this.geoJSONPoint(spot.longitude, spot.latitude, spot.name, ratingImg, spot.yelpData.image, spot.yelpData.text, neighborhood);
     });
     return [
       {

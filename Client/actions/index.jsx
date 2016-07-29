@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import req from 'axios';
+// import User from '../../server/db/Users';
 
 export const NAV_CLICK_COLLECTION = 'NAV_CLICK_COLLECTION';
 export const NAV_CLICK_FILTER = 'NAV_CLICK_FILTER';
@@ -7,6 +8,8 @@ export const PANEL_CLICK_FILTER_ITEM = 'PANEL_CLICK_FILTER_ITEM';
 export const MAP_CONFIRM_POINT = 'MAP_CONFIRM_POINT';
 export const FETCH_COLLECTION = 'FETCH_COLLECTION';
 export const CREATE_FILTERS = 'CREATE_FILTERS';
+export const FETCH_USER = 'FETCH_USER';
+
 
 // Click Handler for Nav Collection button
 export function toggleCollectionList(panelMode, isOpen) {
@@ -127,6 +130,14 @@ export function clickLocationSubmit(name, latitude, longitude, rating) {
   };
 }
 
+export function fetchUser() {
+  const user = req.get('/api/spots');
+  return {
+    type: FETCH_USER,
+    payload: user
+  };
+}
+
 
 export function fetchCollection() {
   // This function should only be called once on startup
@@ -143,7 +154,7 @@ export function createFilters(collection, filters) {
 
   _.map(collection, (spot) => {
     if (_.findIndex(filters, (o) => {
-      return o === spot.yelpData.cuisine
+      return o === spot.yelpData.cuisine;
     }) === -1) {
       filters.push(spot.yelpData.cuisine);
     }
@@ -152,5 +163,5 @@ export function createFilters(collection, filters) {
   return {
     type: CREATE_FILTERS,
     payload: filters
-  }
+  };
 }
