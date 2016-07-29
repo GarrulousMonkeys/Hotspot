@@ -12,18 +12,18 @@ import React from 'react';
 var CollectionModel = ({item}) => {
   return (
   <div id='restaurant' className='restaurant card' >
-  {item.username}
-    <img className='card-img-top' src={item.yelpData.image} />
+    <h4 className='card-title'>{item.name}</h4>
+  <div className='top-info'>
+    <img className='card-img-top thumbnail' src={item.yelpData.image ? item.yelpData.image : 'http://www.aviatorcameragear.com/wp-content/uploads/2012/07/placeholder-100x100.jpg'} />
     <div className='card-block'>
-      <h4 className='card-title'>{item.name}</h4>
     </div>
-    <ul className='list-group list-group-flush'>
-      <li className='list-group-item'>Rating: {item.rating}</li>
-      <li className='list-group-item'>Type: {item.yelpData.cuisine}</li>
-      <li className='list-group-item'>Neighborhood: {item.yelpData.neighborhoods ? item.yelpData.neighborhoods[0] : ''}</li>
-      <li className='list-group-item'>What people think: "{item.yelpData.text}"</li>
-      <li className='list-group-item'></li>
-    </ul>
+    <div className='details'>
+      <p className='spotinfo'>Rating: {item.rating}</p>
+      <p className='spotinfo'>Type: {item.yelpData.cuisine}</p>
+      <p className='spotinfo'>Neighborhood: {item.yelpData.neighborhoods ? item.yelpData.neighborhoods[0] : ''}</p>
+    </div>
+  </div>
+      <p className='spotinfo'>What people think: "{item.yelpData.text}"</p>
   </div>
 );
 };

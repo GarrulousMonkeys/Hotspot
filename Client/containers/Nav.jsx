@@ -18,10 +18,10 @@ class Nav extends React.Component {
   render() {
     return (
       <nav className="navbar navbar-dark bg-inverse">
-      HOTSPOT
-          <div onClick={this.collectionClick.bind(this)} className='btn btn-default btn-lg navbutton' >Profile</div>
-          <div onClick={this.filterClick.bind(this)} className='btn btn-default btn-lg navbutton'>Filter</div>
+      <span className="hotspot"><a href='/'>HOTSPOT</a></span>
           <a className='btn btn-default btn-lg navbutton' href="/logout">Sign Out</a>
+          <div onClick={this.filterClick.bind(this)} className='btn btn-default btn-lg navbutton'>Filter</div>
+          <div onClick={this.collectionClick.bind(this)} className='btn btn-default btn-lg navbutton' >Profile</div>
       </nav>
     );
   }

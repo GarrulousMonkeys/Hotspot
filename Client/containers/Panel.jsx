@@ -15,6 +15,14 @@ class Panel extends React.Component {
     this.props.actions.fetchCollection();
   }
 
+  heading() {
+    if (this.props.panelMode === 'filter') {
+      return (<h2>categories</h2>);
+    } else {
+      return (<h2>hello, {this.props.user}</h2>);
+    }
+  }
+
   render() {
     let panelItems;
 
@@ -45,8 +53,9 @@ class Panel extends React.Component {
             noOverlay
             customBurgerIcon={ false }
             customCrossIcon={ false }
+            width={ 400 }
             isOpen={ this.props.isOpen }>
-        <h1>{this.props.user}</h1>
+        {this.heading()}
         {panelItems}
       </Menu>
     );
