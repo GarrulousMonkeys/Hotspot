@@ -38,6 +38,15 @@ class User extends DB {
     })
     .catch((err) => console.log(err));
   }
+
+  getThisUser(user) {
+    return this.find({name: user.name})
+      .then((data) => {
+        return Promise.all(data);
+      })
+      .catch((err) => console.log(err));
+  }
+
 }
 
 export default new User(dbConnection, userSchema);

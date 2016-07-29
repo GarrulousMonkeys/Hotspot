@@ -10,9 +10,10 @@ const Menu = require('react-burger-menu').slide;
 
 class Panel extends React.Component {
 
-  // componentDidMount() {
-  //   this.props.actions.fetchCollection();
-  // }
+  componentDidMount() {
+    this.props.actions.fetchUser();
+    this.props.actions.fetchCollection();
+  }
 
   render() {
     let panelItems;
@@ -38,6 +39,7 @@ class Panel extends React.Component {
           key={restaurant.name}/>);
       });
     }
+    // console.log('PROPS -- ', this.props.totalCollection);
     return (
       <Menu id={ 'panel' }
             right
@@ -45,17 +47,19 @@ class Panel extends React.Component {
             customBurgerIcon={ false }
             customCrossIcon={ false }
             isOpen={ this.props.isOpen }>
+        <h1>{this.props.user}</h1>
         {panelItems}
-
       </Menu>
     );
   }
 }
 
 function mapStateToProps(state) {
+  console.log(typeof state.User.User);
   return {
     totalCollection: state.CollectionRestaurantsFilters.collection,
     filters: state.FilterSelectedRestaurants.filters,
+    user: state.User.User,
     filterSelected: state.FilterSelectedRestaurants.filterSelected,
     filteredCollection: state.FilterSelectedRestaurants.filteredRestaurants,
     panelMode: state.PanelMode.panelMode,

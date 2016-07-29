@@ -1,6 +1,8 @@
 body {
   margin: 0;
   padding: 0;
+  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  color: #000;
 }
 
 .map {
@@ -15,16 +17,28 @@ img {
   width: auto;
 }
 
+.navbutton {
+  padding: 50;
+  border: 0px;
+  border-radius: 0;
+  font-size: 16px;
+  padding-left: 10px;
+  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  color: #000;
+}
+
 /* Color/shape of burger icon bars */
 .bm-burger-bars {
-  background: #87b;
+  background: #FFF;
 }
 
 /* General sidebar styles */
 .bm-menu {
-  background: #87b;
+  background-color: rgba(255, 255, 255, .7);
   padding: 2.5em 1.5em 0;
   font-size: 1.15em;
+  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  color: #000;
 }
 
 /* Wrapper for item list */
@@ -46,8 +60,13 @@ img {
 
 nav.navbar {
   margin-bottom: 0;
-  border-bottom: 5px solid #87b;
+  border-bottom: 2px solid #000;
   height: 70px;
+  font-weight: bold;
+  font-size: 16px;
+  padding-left: 10px;
+  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  color: #000;
 }
 
 .thumb-class {

@@ -12,6 +12,7 @@ import React from 'react';
 var CollectionModel = ({item}) => {
   return (
   <div id='restaurant' className='restaurant card' >
+  {item.username}
     <img className='card-img-top' src={item.yelpData.image} />
     <div className='card-block'>
       <h4 className='card-title'>{item.name}</h4>
