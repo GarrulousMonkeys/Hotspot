@@ -86,7 +86,6 @@ export var requestYelp = function (setParameters, busId) {
 
       var data = JSON.parse(body);
       // console.log('returning data', data);
-
       if (busId) {
         resolve(parseYelpData(data));
       } else if (data.businesses.length > 0) {
@@ -129,7 +128,10 @@ export var parseYelpData = function (business) {
     name: business.name,
     cuisine: cuisine,
     image: imageUrl,
-    businessId: businessId
+    businessId: businessId,
+    address: business.location.display_address,
+    neighborhoods: business.location.neighborhoods,
+    text: business.snippet_text
   };
 
   return parsed;

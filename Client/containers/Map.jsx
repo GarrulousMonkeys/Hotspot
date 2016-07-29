@@ -90,7 +90,9 @@ class Map extends React.Component {
     restaurantPoints.on('layeradd', (point) => {
       let marker = point.layer;
       let content = `<h2>${marker.feature.properties.title}</h2>
-                      <img src="${marker.feature.properties.image}" alt="" />`
+                      <img src="${marker.feature.properties.image}" alt="" />
+                      <p>Neighborhood: ${marker.feature.properties.neighborhood}</p>
+                      <p>What people think: "${marker.feature.properties.text}"</p>`
 
       // Sets the thumbs as the icon
       marker.setIcon(L.icon(marker.feature.properties.icon));
@@ -106,6 +108,8 @@ class Map extends React.Component {
       collection = this.props.filteredCollection;
     }
 
+    console.log(collection);
+
     restaurantPoints.setGeoJSON(this.formatGeoJSON(collection));
   }
 
@@ -117,7 +121,7 @@ class Map extends React.Component {
 
       //let ratingImg = spot.rating === '5' ? thumbUp : thumbDown;
       let ratingImg = thumbs[ratingInt];
-      return this.geoJSONPoint(spot.longitude, spot.latitude, spot.name, ratingImg, spot.yelpData.image);
+      return this.geoJSONPoint(spot.longitude, spot.latitude, spot.name, ratingImg, spot.yelpData.image, spot.yelpData.text, spot.yelpData.neighborhoods[0]);
     });
     return [
       {
@@ -127,7 +131,7 @@ class Map extends React.Component {
     ];
   }
 
-  geoJSONPoint(longitude, latitude, name, thumb, image) {
+  geoJSONPoint(longitude, latitude, name, thumb, image, text, neighborhood) {
     return {
       type: 'Feature',
       geometry: {
@@ -137,6 +141,8 @@ class Map extends React.Component {
       properties: {  // for styling
         title: name,
         image: image,
+        text: text,
+        neighborhood: neighborhood,
         icon: {
           iconUrl: thumb,
           iconSize: [35, 35],
