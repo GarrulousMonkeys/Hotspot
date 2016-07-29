@@ -112,6 +112,17 @@ export function closeCollectionItem(item) {
 //   };
 // }
 
+export function fetchCollection() {
+  // This function should only be called once on startup
+  // Query database for user's entire collection
+  const collection = req.get('/api/spots');
+
+  return {
+    type: FETCH_COLLECTION,
+    payload: collection
+  };
+}
+
 export function clickLocationSubmit(name, latitude, longitude, rating) {
   // Create object to make DB query
   const spotToAdd = {
@@ -121,12 +132,14 @@ export function clickLocationSubmit(name, latitude, longitude, rating) {
     rating: rating
   };
 
-  // Add type and image from returned request
-  const data = req.post('/api/spots', spotToAdd);
-
+  const collection = req.post('/api/spots', spotToAdd)
+    .then(() => {
+      return req.get('/api/spots');
+    });
+  
   return {
-    type: MAP_CONFIRM_POINT,
-    payload: data
+    type: FETCH_COLLECTION,
+    payload: collection
   };
 }
 
@@ -139,16 +152,6 @@ export function fetchUser() {
 }
 
 
-export function fetchCollection() {
-  // This function should only be called once on startup
-  // Query database for user's entire collection
-  const collection = req.get('/api/spots');
-
-  return {
-    type: FETCH_COLLECTION,
-    payload: collection
-  };
-}
 
 export function createFilters(collection, filters) {
 
