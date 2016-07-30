@@ -165,11 +165,11 @@ export function fetchCollection() {
 export function fetchNearMe() {
   // This function should only be called once on startup
   // Query database for user's entire collection
-  const collection = req.get('/api/restaurants');
-
+  const restaurants = req.get('/api/restaurants');
+  
   return {
     type: FETCH_NEAR_ME,
-    payload: collection
+    payload: restaurants
   };
 }
 
