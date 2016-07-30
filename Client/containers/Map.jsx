@@ -15,6 +15,7 @@ let defaultCoord = [37.784005, -122.401551]; //(Moscone Center)
 let mainMap;
 let restaurantPoints;
 let pointQuery;
+let currLoc;
 //let thumbDown = 'http://emojipedia-us.s3.amazonaws.com/cache/8f/32/8f32d2d9cdc00990f5d992396be4ab5a.png';
 //let thumbUp = 'http://emojipedia-us.s3.amazonaws.com/cache/79/bb/79bb8226054d3b254d3389ff8c9fe534.png';
 let fistBump = 'http://emojipedia-us.s3.amazonaws.com/cache/2c/08/2c080d6b97f0416f9d914718b32a2478.png';
@@ -42,15 +43,18 @@ class Map extends React.Component {
       });
   }
 
-  shouldComponentUpdate() {
-    return restaurantPoints !== undefined && pointQuery !== undefined; 
-  }
-
   componentWillUpdate() {
-    setTimeout(()=> {
-      mainMap.removeLayer(restaurantPoints);
-      mainMap.removeLayer(pointQuery);
-      this.addPointsLayer();
+    setTimeout(() => {
+      let flag = false;
+      if (restaurantPoints) { 
+        mainMap.removeLayer(restaurantPoints);
+        flag = true;
+      }
+      if (pointQuery) { 
+        mainMap.removeLayer(pointQuery); 
+        flag = true;
+      }
+      if (flag) { this.addPointsLayer() };
     },0);
   }
 
@@ -58,7 +62,7 @@ class Map extends React.Component {
 
     // Creates base map layer
     mainMap = L.mapbox.map('map-one', 'cpwalker.h2ec4f4i')
-      .setView(defaultCoord, 13);
+      .setView(defaultCoord, 14);
 
     // Creates seachbar
     let geocoderControl = L.mapbox.geocoderControl('mapbox.places', {
@@ -70,7 +74,7 @@ class Map extends React.Component {
     geocoderControl.addTo(mainMap);
 
     // Handler when search term clicked
-    geocoderControl.on('select', (res, mainMap) => this.foundRestaurant(res) );
+    geocoderControl.on('select', (res) => this.foundRestaurant(res) );
     
     // Call addPointLayer to plot the markers
     this.addPointsLayer();
@@ -78,11 +82,34 @@ class Map extends React.Component {
   }
 
   getUserLocation() {
+
+    currLoc = L.mapbox.featureLayer().addTo(mainMap);
+
     // search current location and center map to the coordinates
     navigator.geolocation.getCurrentPosition(
-      (position) => { mainMap.setView([position.coords.latitude, position.coords.longitude]); },
-      (err) => { alert('Our apologies, but it appears we are unable to find you') } 
+      (pos) => { 
+        let lat = pos.coords.latitude;
+        let lng = pos.coords.longitude;
+
+        let geojson = {
+          type: 'Feature',
+          geometry: {
+              type: 'Point',
+              coordinates: [lng, lat]
+          },
+          properties: {
+            "marker-color": '#CC0000'
+          }
+        }
+
+        currLoc.setGeoJSON(geojson);
+        mainMap.setView([lat, lng]);
+      },
+      (err) => { 
+        alert('Our apologies, but it appears we are unable to find you') 
+      }
     );
+
   }
 
   addPointsLayer() {

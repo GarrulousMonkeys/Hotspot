@@ -148,6 +148,7 @@ nav.navbar {
 }
 
 .filter-item {
+  cursor: pointer;
   background-color: #000;
   color: #FFF;
   padding: 5px;
