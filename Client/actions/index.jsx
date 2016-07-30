@@ -9,6 +9,7 @@ export const NAV_CLICK_NEARBY = 'NAV_CLICK_NEARBY';
 export const PANEL_CLICK_FILTER_ITEM = 'PANEL_CLICK_FILTER_ITEM';
 export const MAP_CONFIRM_POINT = 'MAP_CONFIRM_POINT';
 export const FETCH_COLLECTION = 'FETCH_COLLECTION';
+export const FETCH_NEAR_ME = 'FETCH_NEAR_ME';
 export const CREATE_FILTERS = 'CREATE_FILTERS';
 export const FETCH_USER = 'FETCH_USER';
 
@@ -158,6 +159,17 @@ export function fetchCollection() {
   return {
     type: FETCH_COLLECTION,
     payload: collection
+  };
+}
+
+export function fetchNearMe() {
+  // This function should only be called once on startup
+  // Query database for user's entire collection
+  const restaurants = req.get('/api/restaurants');
+  
+  return {
+    type: FETCH_NEAR_ME,
+    payload: restaurants
   };
 }
 

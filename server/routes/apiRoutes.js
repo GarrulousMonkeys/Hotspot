@@ -2,11 +2,29 @@ import Spot from '../db/Spots';
 import User from '../db/Users';
 import SpotsUsers from '../db/spotsUsersJoin';
 import { sendBackJSON } from '../db/queryHelpers';
-import {requestMultipleYelp, generateYelpNewBusParam} from '../yelp/yelpQuery';
+import {requestMultipleYelp, generateYelpNewBusParam, requestYelp} from '../yelp/yelpQuery';
+import {requestYelp2} from '../yelp/yelpQuery2';
 import Promise from 'bluebird';
 import _ from 'lodash';
 
 export default function(app) {
+  // RETFUL API for retrieving restaurants near the user
+  app.get('/api/restaurants', (req, res) => {
+    let setParameters = {
+      term: 'restaurants',
+      location: 'San Francisco, CA',
+      radius_filter: 2500,
+      limit: 15
+    };
+    requestYelp2(setParameters)
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });  
+  });
+
   // RESTFUl API for retrieving spots from the db
   app.get('/api/spots', (req, res) => {
     let spotsReturn;

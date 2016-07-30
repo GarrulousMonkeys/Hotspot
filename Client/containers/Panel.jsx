@@ -14,12 +14,12 @@ class Panel extends React.Component {
 
   componentDidMount() {
     this.props.actions.fetchUser();
+    this.props.actions.fetchNearMe();
     this.props.actions.fetchCollection();
   }
 
   render() {
     let panelItems, heading;
-    console.log(this.props.isOpen);
     this.props.actions.createFilters(this.props.totalCollection, this.props.filters);
 
     if (this.props.panelMode === 'filter') {
@@ -80,7 +80,7 @@ function mapStateToProps(state) {
     totalCollection: state.CollectionRestaurantsFilters.collection,
     filters: state.FilterSelectedRestaurants.filters,
     user: state.User.User,
-    nearby: state.Nearby.Collection,
+    nearby: state.Nearby.collection,
     filterSelected: state.FilterSelectedRestaurants.filterSelected,
     filteredCollection: state.FilterSelectedRestaurants.filteredRestaurants,
     panelMode: state.PanelMode.panelMode,
