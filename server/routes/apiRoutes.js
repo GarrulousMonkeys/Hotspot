@@ -9,10 +9,10 @@ import _ from 'lodash';
 
 export default function(app) {
   // RETFUL API for retrieving restaurants near the user
-  app.get('/api/restaurants', (req, res) => {
+  app.post('/api/restaurants', (req, res) => {
     let setParameters = {
       term: 'restaurants',
-      location: 'San Francisco, CA',
+      ll: `${req.body.latitude},${req.body.longitude}`,
       radius_filter: 2500,
       limit: 15
     };

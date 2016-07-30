@@ -147,10 +147,13 @@ export function fetchCollection() {
   };
 }
 
-export function fetchNearMe() {
-  // This function should only be called once on startup
-  // Query database for user's entire collection
-  const restaurants = req.get('/api/restaurants');
+export function fetchNearMe(latitude, longitude) {
+  // This function is called whenever the user clicks near me
+  const currentLocation = {
+    latitude: latitude || '37.784005',
+    longitude: longitude || '-122.401551'
+  }
+  const restaurants = req.post('/api/restaurants', currentLocation);
   
   return {
     type: FETCH_NEAR_ME,
