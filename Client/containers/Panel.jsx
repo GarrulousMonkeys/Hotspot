@@ -52,7 +52,7 @@ class Panel extends React.Component {
       });
     } else if (this.props.panelMode === 'nearby') {
       heading = <h2>nearby</h2>
-      panelItems = this.props.nearby.reverse().map((restaurant) => {
+      panelItems = this.props.nearby.map((restaurant) => {
         return (<NearbyModel item={restaurant}
           viewCollectionItem={this.props.actions.viewCollectionItem}
           key={restaurant.name}/>);
