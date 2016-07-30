@@ -10,7 +10,7 @@ var FilterItem = ({filter, appliedFilters, toggleFilter, collection}) => {
   return (
     <div className='filter'>
       <div className={cssClasses} onClick={ () => { toggleFilter(filter, appliedFilters, collection); }}>
-      {filter}
+      {filter || 'Other'}
       </div>
     </div>
   );
