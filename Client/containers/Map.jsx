@@ -119,10 +119,10 @@ class Map extends React.Component {
     // Handle for when layer is added
     restaurantPoints.on('layeradd', (point) => {
       let marker = point.layer;
-      let content = `<div class='popup-info'><h2>${marker.feature.properties.title}</h2>
-                      <img src="${marker.feature.properties.image}" alt="" />
-                      <p>Neighborhood: ${marker.feature.properties.neighborhood}</p>
-                      <p>What people think: "${marker.feature.properties.text}"</p></div>`
+      let content = `<div class='pop-up'><p class='pop-up-title'>${marker.feature.properties.title}</p>
+                      <img class='pop-up-image' src="${marker.feature.properties.image}" alt="" />
+                      <p class='pop-up-neighborhood'>Neighborhood: ${marker.feature.properties.neighborhood}</p>
+                      <p class='pop-up-text'>What people think: "${marker.feature.properties.text}"</p></div>`
 
       // Sets the thumbs as the icon
       marker.setIcon(L.icon(marker.feature.properties.icon));
@@ -191,19 +191,20 @@ class Map extends React.Component {
       let feature = marker.feature;
       marker.setIcon(L.icon(feature.properties.icon));
 
-      let content = `<h4 class='pop-up-title'>${feature.properties.title}</h4>
-                      <form>Would you go back?
-                        <br />
+      let content = `<div class='pop-up'>
+                      <h4 class='pop-up-title'>${feature.properties.title}</h4>
+                      <form><p class='pop-up-text'>Would you go back?</p>
                         <label> 
-                          <input type="radio" name="goBack" required=""> Definitely and absolutely
+                          <input class='pop-up-text' type="radio" name="goBack" required=""> Definitely and absolutely!
                         </label>
                         <br />
                         <label> 
-                          <input type="radio" name="goBack"> Never ever ever
+                          <input class='pop-up-text' type="radio" name="goBack"> Never ever ever.
                         </label>
                         <br />
-                        <input type="button" id="submit" value="Thumbs!!!!">
-                      </form>`;
+                        <input class='pop-up-button' type="button" id="submit" value="thumbs">
+                      </form>
+                      </div>`;
 
       marker.bindPopup(content);
     });

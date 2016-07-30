@@ -9,13 +9,46 @@ body {
 h2 {
   text-align: center;
   font-size: 50px;
-  color: #FFF;
   padding-bottom: 25px;
 }
-/*
+
+.pop-up {
+  padding: 10px;
+}
+
 .pop-up-title {
-  color: #000;
-}*/
+  color: #CC0000;
+  font-weight: bold;
+  text-align: center;
+}
+
+.pop-up-text {
+  font-family: 'Arial', 'Helvetica Neue', sans-serif;
+  font-weight: normal;
+}
+
+.pop-up-button {
+  color: #CC0000;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  border: 1px solid #CC0000;
+  background-color: #FFF;
+}
+
+.pop-up-flex {
+  display: block;
+}
+
+.pop-up-image {
+  float: left;
+  padding: 15px 15px 15px 0;
+}
+
+.pop-up-neighborhood {
+  font-weight: bold;
+}
 
 .fire {
   height: 40px;
@@ -27,6 +60,14 @@ h2 {
 h3 {
   text-align: center;
   padding-bottom: 15px;
+}
+
+nav h3 {
+  color: #FFF;
+}
+
+nav h2 {
+  color: #FFF;
 }
 
 .hotspot {
@@ -285,25 +326,29 @@ nav.navbar {
 .profile-thumb {
   height: 35px;
   width: 35px;
+  margin: 7px;
 }
 
 nav.navbar span {
   padding-top: 20px;
 }
 
+.profile-spot {
+  justify-content: center;
+  padding: 5px;
+  margin: 10px;
+  background-color: #000;
+}
+
 .profile-spot a:link {
   text-decoration: none;
-  color: #000;
+  color: #FFF;
 }
 
 /* visited link */
 .profile-spot a:visited {
   text-decoration: none;
-  color: #000;
-}
-
-.profile-spot {
-  padding: 5px;
+  color: #FFF;
 }
 
 /* mouse over link */
