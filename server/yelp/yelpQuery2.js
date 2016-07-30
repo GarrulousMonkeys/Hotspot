@@ -83,8 +83,11 @@ export var requestYelp2 = function (setParameters) {
 
 // Parse required data out of Yelp's response data
 export var parseYelpData = function (business) {
+  console.log(business);
   var parsed = {
     name: business.name,
+    lat: business.location.coordinate.latitude, 
+    long: business.location.coordinate.longitude,
     cuisine: business.categories[0][0],
     image: business.image_url,
     businessId: business.id,
