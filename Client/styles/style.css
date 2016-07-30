@@ -11,6 +11,18 @@ h2 {
   padding-bottom: 25px;
 }
 
+.fire {
+  height: 40px;
+  width: 40px;
+  display: block;
+  margin: auto;
+}
+
+h3 {
+  text-align: center;
+  padding-bottom: 15px;
+}
+
 .hotspot {
   color: #FFF;
   padding-top: 30px;
@@ -117,9 +129,10 @@ img {
 nav.navbar {
   margin-bottom: 0;
   padding-top: 15px;
+  z-index: 100;
   background-color: #000;
-  border-bottom: 65px solid #CC0000;
-  height: 150px;
+  border-bottom: 10px solid #CC0000;
+  height: 100px;
   font-weight: bold;
   border-radius: 0px;
   font-size: 40px;
@@ -169,8 +182,8 @@ nav.navbar {
 
 /* mouse over link */
 .filter-item:hover {
-  transition: color 0.8s ease;
-  color: #CC0000;
+/*  transition: color 0.8s ease;
+  color: #CC0000;*/
   text-decoration: none;
 }
 
@@ -180,8 +193,34 @@ nav.navbar {
   text-decoration: none;
 }
 
+.profile-thumb {
+  height: 35px;
+  width: 35px;
+}
+
 nav.navbar span {
   padding-top: 20px;
+}
+
+.profile-spot a:link {
+  text-decoration: none;
+  color: #000;
+}
+
+/* visited link */
+.profile-spot a:visited {
+  text-decoration: none;
+  color: #000;
+}
+
+.profile-spot {
+  padding: 5px;
+}
+
+/* mouse over link */
+.profile-spot a:hover {
+  color: #CC0000;
+  text-decoration: none;
 }
 
 .thumb-class {
