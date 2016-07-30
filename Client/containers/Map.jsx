@@ -13,17 +13,18 @@ let nearbyPoints;
 let pointQuery;
 let currLoc;
 
-let thumbs = {
+// Image Reference
+const pin = '../components/assets/pin.png';
+const waitingImage = '../components/assets/pokemon.gif';
+const fistBump = '../components/assets/fistbumb.png';
+const thumbs = {
   1: '/../components/assets/thumbdown.png',
   2: '/../components/assets/thumbdownleft.png',
   3: '/../components/assets/thumbside.png',
   4: '/../components/assets/thumbupleft.png',
   5: '/../components/assets/thumbup.png'
 };
-//let pin = '/../components/assets/fire.png'
-let fistBump = 'http://emojipedia-us.s3.amazonaws.com/cache/2c/08/2c080d6b97f0416f9d914718b32a2478.png';
-let pin = 'http://www.i2clipart.com/cliparts/1/7/3/2/clipart-location-marker-1732.png';
-let waitingImage = 'http://67.media.tumblr.com/b8eaede3855fb0526843e91f46052746/tumblr_o6lfbf4eKP1ufjgb9o1_250.gif';
+
 
 class Map extends React.Component {
   constructor(props) {
