@@ -191,7 +191,7 @@ class Map extends React.Component {
       let feature = marker.feature;
       marker.setIcon(L.icon(feature.properties.icon));
 
-      let content = `<h2>${feature.properties.title}</h2>
+      let content = `<h4 class='pop-up-title'>${feature.properties.title}</h4>
                       <form>Would you go back?
                         <br />
                         <label> 
@@ -203,8 +203,7 @@ class Map extends React.Component {
                         </label>
                         <br />
                         <input type="button" id="submit" value="Thumbs!!!!">
-                      </form>
-                      <img src="${feature.properties.image}" alt="">`;
+                      </form>`;
 
       marker.bindPopup(content);
     });
