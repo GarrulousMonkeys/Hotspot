@@ -46,16 +46,12 @@ h2 {
   padding: 15px 15px 15px 0;
 }
 
-.pop-up-wait-image {
-
-}
 .pop-up-neighborhood {
   font-weight: bold;
 }
 
-.pop-up-wait-image {
-  width: 100px;
-  height: auto;
+.pop-up-image {
+  width: 200px;
 }
 
 .fire {
