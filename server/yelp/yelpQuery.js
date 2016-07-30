@@ -85,7 +85,7 @@ export var requestYelp = function (setParameters, busId) {
       }
 
       var data = JSON.parse(body);
-      // console.log('returning data', data);
+      console.log('returning data', data);
       if (busId) {
         resolve(parseYelpData(data));
       } else if (data.businesses.length > 0) {
