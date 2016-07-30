@@ -195,8 +195,8 @@ class Map extends React.Component {
 
     nearbyPoints.on('layeradd', (point) => {
       let marker = point.layer;
-      let content = `<div class='popup-info'><h2 class='pop-up-title'>${marker.feature.properties.title}</h2>
-                      <img class='pop-up-image' src="${marker.feature.properties.image}" alt="" />
+      let content = `<div class='pop-up'><h2 class='pop-up-title'>${marker.feature.properties.title}</h2>
+                      <img class='pop-up-wait-image' src="${marker.feature.properties.image}" alt="" />
                       <p class='pop-up-neighborhood'>Neighborhood: ${marker.feature.properties.neighborhood}</p>
                       <p class='pop-up-text'>What people think: "${marker.feature.properties.text}"</p></div>`
       marker.setIcon(L.icon(marker.feature.properties.icon));
