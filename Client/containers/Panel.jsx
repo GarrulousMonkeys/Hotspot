@@ -33,26 +33,26 @@ class Panel extends React.Component {
       });
     } else if (this.props.filteredCollection.length !== 0) {
       heading = <h2>hello, {this.props.user}</h2>
-      panelItems = this.props.filteredCollection.map((restaurant) => {
+      panelItems = this.props.filteredCollection.reverse().map((restaurant) => {
         return (<CollectionModel item={restaurant} key={restaurant.name}/>);
       });
     } else if (this.props.panelMode === 'collection') {
       heading = <h2>spots</h2>
-      panelItems = this.props.totalCollection.map((restaurant) => {
+      panelItems = this.props.totalCollection.reverse().map((restaurant) => {
         return (<CollectionModel item={restaurant}
           viewCollectionItem={this.props.actions.viewCollectionItem}
           key={restaurant.name}/>);
       });
     } else if (this.props.panelMode === 'profile') {
       heading = <div><h2>hello, {this.props.user}</h2><img className='fire' src='../components/Assets/fire.png'/><h3>your spots</h3></div>
-      panelItems = this.props.totalCollection.map((restaurant) => {
+      panelItems = this.props.totalCollection.reverse().map((restaurant) => {
         return (<ProfileSpotsModel item={restaurant}
           viewCollectionItem={this.props.actions.viewCollectionItem}
           key={restaurant.name}/>);
       });
     } else if (this.props.panelMode === 'nearby') {
       heading = <h2>nearby</h2>
-      panelItems = this.props.nearby.map((restaurant) => {
+      panelItems = this.props.nearby.reverse().map((restaurant) => {
         return (<NearbyModel item={restaurant}
           viewCollectionItem={this.props.actions.viewCollectionItem}
           key={restaurant.name}/>);
