@@ -16,6 +16,19 @@ h2 {
   padding: 10px;
 }
 
+.wait-container {
+  float: left;
+  width: 100%;
+  padding-top: 30px;
+}
+
+.pop-up-wait-image {
+  width: 100px;
+  display: block;
+  margin: auto;
+
+}
+
 .pop-up-title {
   color: #CC0000;
   font-weight: bold;
@@ -295,7 +308,7 @@ nav.navbar {
 /* mouse over link */
 .restaurant:hover {
   color: #000;
-  transition: transform .5s ease-in-out;
+  transition: transform .1s ease-in-out;
   text-decoration: none;
   transform: scale(1.05);
 }
