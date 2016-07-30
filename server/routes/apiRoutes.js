@@ -8,7 +8,7 @@ import Promise from 'bluebird';
 import _ from 'lodash';
 
 export default function(app) {
-  // RETFUL API for retrieving restaurants near the user
+  // RETFUL API for posting current location and retrieving restaurants near the user
   app.post('/api/restaurants', (req, res) => {
     let setParameters = {
       term: 'restaurants',

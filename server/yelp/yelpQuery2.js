@@ -18,18 +18,15 @@ const YELP_TOKEN_SECRET = process.env.YELP_TOKEN_SECRET || 0;
 
 
 // Yelp Endpoint
-var endpointNewPlace = 'https://api.yelp.com/v2/search';
+const endpointNewPlace = 'https://api.yelp.com/v2/search';
 
 // Yelp call
-export var requestYelp2 = function (setParameters) {
-  var httpMethod = 'GET';
+export const requestYelp2 = function (setParameters) {
+  const httpMethod = 'GET';
 
-  var url = endpointNewPlace;
+  const url = endpointNewPlace;
 
-
-  var defaultParameters = {};
-
-  var requiredParameters = {
+  const requiredParameters = {
     oauth_consumer_key: YELP_CONSUMER_KEY,
     oauth_token: YELP_TOKEN,
     oauth_nonce: n()(),
@@ -38,13 +35,13 @@ export var requestYelp2 = function (setParameters) {
     oauth_version: '1.0'
   };
 
-  var parameters = _.assign(setParameters, requiredParameters);
+  const parameters = _.assign(setParameters, requiredParameters);
 
-  var consumerSecret = YELP_CONSUMER_SECRET;
-  var tokenSecret = YELP_TOKEN_SECRET;
+  const consumerSecret = YELP_CONSUMER_SECRET;
+  const tokenSecret = YELP_TOKEN_SECRET;
 
   // Call Yelp servers for a oAuth signature (only good for 300 sec)
-  var signature = oauthSignature.generate(
+  const signature = oauthSignature.generate(
     httpMethod,
     url,
     parameters,
@@ -55,9 +52,9 @@ export var requestYelp2 = function (setParameters) {
 
   parameters.oauth_signature = signature;
 
-  var paramUrl = qs.stringify(parameters);
+  const paramUrl = qs.stringify(parameters);
 
-  var apiUrl = url + '?' + paramUrl;
+  const apiUrl = url + '?' + paramUrl;
 
   return new Promise((resolve, reject) => {
     request(apiUrl, function(err, res, body) {
@@ -67,7 +64,7 @@ export var requestYelp2 = function (setParameters) {
         reject(err);
       }
 
-      var data = JSON.parse(body);
+      const data = JSON.parse(body);
         if (data.businesses.length > 0) {
           let resolveBusinesses = data.businesses.map((business) => {
             return parseYelpData(business);
@@ -82,8 +79,8 @@ export var requestYelp2 = function (setParameters) {
 };
 
 // Parse required data out of Yelp's response data
-export var parseYelpData = function (business) {
-  var parsed = {
+export const parseYelpData = function (business) {
+  const parsed = {
     name: business.name,
     lat: business.location.coordinate.latitude, 
     long: business.location.coordinate.longitude,
