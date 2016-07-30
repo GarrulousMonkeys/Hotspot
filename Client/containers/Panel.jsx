@@ -14,7 +14,6 @@ class Panel extends React.Component {
 
   componentDidMount() {
     this.props.actions.fetchUser();
-    this.props.actions.fetchNearMe();
     this.props.actions.fetchCollection();
   }
 
