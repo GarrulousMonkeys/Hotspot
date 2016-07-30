@@ -3,8 +3,6 @@ import { NAV_CLICK_COLLECTION } from '../actions/index';
 import { NAV_CLICK_PROFILE } from '../actions/index';
 import { NAV_CLICK_NEARBY } from '../actions/index';
 
-
-
 const initialState = {
   panelMode: 'none',
   isOpen: false,

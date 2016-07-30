@@ -5,21 +5,13 @@ import * as Actions from '../actions';
 import token from '../token';
 
 // MapBox Variables
-
-//Ryan's access token below:
-//L.mapbox.accessToken = 'pk.eyJ1IjoiY3B3YWxrZXIiLCJhIjoiOWNjQUpDVSJ9.nI3OoM0N6iIVv5GlhYBxoA';
 L.mapbox.accessToken = token;
-
-let defaultCoord = [37.784005, -122.401551]; //(Moscone Center)
-//let defaultCoord = [37.8043700, -122.2708000]; //(Oakland)
+let defaultCoord = [37.771219, -122.453442]; 
 let mainMap;
 let restaurantPoints;
+let nearbyPoints;
 let pointQuery;
 let currLoc;
-//let thumbDown = 'http://emojipedia-us.s3.amazonaws.com/cache/8f/32/8f32d2d9cdc00990f5d992396be4ab5a.png';
-//let thumbUp = 'http://emojipedia-us.s3.amazonaws.com/cache/79/bb/79bb8226054d3b254d3389ff8c9fe534.png';
-let fistBump = 'http://emojipedia-us.s3.amazonaws.com/cache/2c/08/2c080d6b97f0416f9d914718b32a2478.png';
-let waitingImage = 'http://img4.wikia.nocookie.net/__cb20140321012355/spiritedaway/images/1/1f/Totoro.gif';
 
 let thumbs = {
   1: '/../components/assets/thumbdown.png',
@@ -28,6 +20,10 @@ let thumbs = {
   4: '/../components/assets/thumbupleft.png',
   5: '/../components/assets/thumbup.png'
 };
+//let pin = '/../components/assets/fire.png'
+let fistBump = 'http://emojipedia-us.s3.amazonaws.com/cache/2c/08/2c080d6b97f0416f9d914718b32a2478.png';
+let pin = 'http://www.i2clipart.com/cliparts/1/7/3/2/clipart-location-marker-1732.png';
+let waitingImage = 'http://67.media.tumblr.com/b8eaede3855fb0526843e91f46052746/tumblr_o6lfbf4eKP1ufjgb9o1_250.gif';
 
 class Map extends React.Component {
   constructor(props) {
@@ -46,15 +42,26 @@ class Map extends React.Component {
   componentWillUpdate() {
     setTimeout(() => {
       let flag = false;
+
       if (restaurantPoints) { 
         mainMap.removeLayer(restaurantPoints);
         flag = true;
       }
+
       if (pointQuery) { 
         mainMap.removeLayer(pointQuery); 
         flag = true;
       }
+
       if (flag) { this.addPointsLayer() };
+
+      if (nearbyPoints) {
+        mainMap.removeLayer(nearbyPoints); 
+      }
+
+      if (this.props.PanelMode === 'nearby') {
+        this.addNearbyLayer();
+      }
     },0);
   }
 
@@ -98,7 +105,7 @@ class Map extends React.Component {
               coordinates: [lng, lat]
           },
           properties: {
-            "marker-color": '#CC0000'
+            "marker-color": '#90a4ae'
           }
         }
 
@@ -137,7 +144,6 @@ class Map extends React.Component {
     if (this.props.filteredCollection.length > 0) {
       collection = this.props.filteredCollection;
     }
-
 
     restaurantPoints.setGeoJSON(this.formatGeoJSON(collection));
   }
@@ -183,6 +189,46 @@ class Map extends React.Component {
     };
   };
 
+  addNearbyLayer() {
+
+    nearbyPoints = L.mapbox.featureLayer().addTo(mainMap);
+
+    nearbyPoints.on('layeradd', (point) => {
+      let marker = point.layer;
+      let content = `<div class='popup-info'><h2 class='pop-up-title'>${marker.feature.properties.title}</h2>
+                      <img class='pop-up-image' src="${marker.feature.properties.image}" alt="" />
+                      <p class='pop-up-neighborhood'>Neighborhood: ${marker.feature.properties.neighborhood}</p>
+                      <p class='pop-up-text'>What people think: "${marker.feature.properties.text}"</p></div>`
+      marker.setIcon(L.icon(marker.feature.properties.icon));
+      marker.bindPopup(content);
+    });
+
+    let collection = this.props.nearby;
+    let geoNearbyArr = collection.map((near) => {
+      return {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [near.long, near.lat]
+            },
+            properties: {  // for styling
+              title: near.name,
+              image: near.image,
+              text: near.text,
+              neighborhood: near.neighborhood,
+              icon: {
+                iconUrl: pin,
+                iconSize: [35, 35],
+                iconAnchor: [35, 17],
+                popupAnchor: [-17, -17]
+              }
+            }
+          };
+    });
+    
+    nearbyPoints.setGeoJSON( [{ type: 'FeatureCollection', features: geoNearbyArr}] );
+  }
+
   foundRestaurant(res) {
     pointQuery = L.mapbox.featureLayer().addTo(mainMap);
     
@@ -204,7 +250,8 @@ class Map extends React.Component {
                         <br />
                         <input class='pop-up-button' type="button" id="submit" value="thumbs">
                       </form>
-                      </div>`;
+                      </div>
+                      <img class="pop-up-image" src="${feature.properties.image}" alt="" />`;
 
       marker.bindPopup(content);
     });
@@ -238,7 +285,9 @@ function mapStateToProps(state) {
   return {
     filters: state.FilterSelectedRestaurants.filters,
     totalCollection: state.CollectionRestaurantsFilters.collection,
-    filteredCollection: state.FilterSelectedRestaurants.filteredRestaurants
+    filteredCollection: state.FilterSelectedRestaurants.filteredRestaurants,
+    PanelMode: state.PanelMode.panelMode,
+    nearby: state.Nearby.collection,
   };
 }
 

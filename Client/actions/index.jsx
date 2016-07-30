@@ -135,21 +135,6 @@ export function closeCollectionItem(item) {
   };
 }
 
-// NOTE: Not in use
-// export function deleteCollectionItem(item) {
-//   // delete the collection item from the db
-//   const collection = req.del(endpoints.spots + '/' + item.id);
-//   // update the collection and filters
-//   const filters = filterOrganizer(collection);
-
-//   return {
-//     type: PANEL_DELETE_COLLECTION_ITEM,
-//     payload: {
-//       collection: collection.slice(),
-//       filters: filters.slice()
-//     }
-//   };
-// }
 
 export function fetchCollection() {
   // This function should only be called once on startup
@@ -218,3 +203,18 @@ export function createFilters(collection, filters) {
   };
 }
 
+// NOTE: Not in use
+// export function deleteCollectionItem(item) {
+//   // delete the collection item from the db
+//   const collection = req.del(endpoints.spots + '/' + item.id);
+//   // update the collection and filters
+//   const filters = filterOrganizer(collection);
+
+//   return {
+//     type: PANEL_DELETE_COLLECTION_ITEM,
+//     payload: {
+//       collection: collection.slice(),
+//       filters: filters.slice()
+//     }
+//   };
+// }
