@@ -250,8 +250,9 @@ class Map extends React.Component {
                         <br />
                         <input class='pop-up-button' type="button" id="submit" value="thumbs">
                       </form>
+                      <div class='wait-container'><img class="pop-up-wait-image" src="${feature.properties.image}" alt="" /></div>
                       </div>
-                      <img class="pop-up-image" src="${feature.properties.image}" alt="" />`;
+                      `;
 
       marker.bindPopup(content);
     });
