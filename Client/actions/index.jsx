@@ -4,6 +4,8 @@ import req from 'axios';
 
 export const NAV_CLICK_COLLECTION = 'NAV_CLICK_COLLECTION';
 export const NAV_CLICK_FILTER = 'NAV_CLICK_FILTER';
+export const NAV_CLICK_PROFILE = 'NAV_CLICK_PROFILE';
+export const NAV_CLICK_NEARBY = 'NAV_CLICK_NEARBY';
 export const PANEL_CLICK_FILTER_ITEM = 'PANEL_CLICK_FILTER_ITEM';
 export const MAP_CONFIRM_POINT = 'MAP_CONFIRM_POINT';
 export const FETCH_COLLECTION = 'FETCH_COLLECTION';
@@ -24,6 +26,42 @@ export function toggleCollectionList(panelMode, isOpen) {
 
   return {
     type: NAV_CLICK_COLLECTION,
+    payload: {
+      panelMode: panelMode,
+      isOpen: isOpen
+    }
+  };
+}
+
+export function toggleProfileList(panelMode, isOpen) {
+  // If panelMode is profile, set it to null.
+  if (panelMode === 'profile' && isOpen === true) {
+    isOpen = false;
+  } else {
+    // Else set panelMode to profile
+    panelMode = 'profile';
+    isOpen = true;
+  }
+
+  return {
+    type: NAV_CLICK_PROFILE,
+    payload: {
+      panelMode: panelMode,
+      isOpen: isOpen
+    }
+  };
+}
+
+export function toggleNearbyList(panelMode, isOpen) {
+  if (panelMode === 'nearby' && isOpen === true) {
+    isOpen = false;
+  } else {
+    panelMode = 'nearby';
+    isOpen = true;
+  }
+
+  return {
+    type: NAV_CLICK_NEARBY,
     payload: {
       panelMode: panelMode,
       isOpen: isOpen
@@ -66,7 +104,7 @@ export function toggleFilter(filter, selectedFilters, collection) {
   // make a list of the restaurants that match the filter
   let filteredRestaurants = [];
   _.map(collection, (spot) => {
-    if (_.findIndex(selectedFilters, (o) => { return o === spot.yelpData.cuisine}) > -1) {
+    if (_.findIndex(selectedFilters, (o) => { return o === spot.yelpData.cuisine; }) > -1) {
       filteredRestaurants.push(spot);
     }
   });
@@ -151,8 +189,6 @@ export function fetchUser() {
   };
 }
 
-
-
 export function createFilters(collection, filters) {
 
   _.map(collection, (spot) => {
@@ -161,6 +197,7 @@ export function createFilters(collection, filters) {
     }) === -1) {
       filters.push(spot.yelpData.cuisine);
     }
+
   });
 
   return {
@@ -168,3 +205,4 @@ export function createFilters(collection, filters) {
     payload: filters
   };
 }
+

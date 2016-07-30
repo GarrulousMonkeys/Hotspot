@@ -22,11 +22,11 @@ let fistBump = 'http://emojipedia-us.s3.amazonaws.com/cache/2c/08/2c080d6b97f041
 let waitingImage = 'http://img4.wikia.nocookie.net/__cb20140321012355/spiritedaway/images/1/1f/Totoro.gif';
 
 let thumbs = {
-  1: '/../component/map/assets/thumbdown.png',
-  2: '/../component/map/assets/thumbdownleft.png',
-  3: '/../component/map/assets/thumbside.png',
-  4: '/../component/map/assets/thumbupleft.png',
-  5: '/../component/map/assets/thumbup.png'
+  1: '/../components/assets/thumbdown.png',
+  2: '/../components/assets/thumbdownleft.png',
+  3: '/../components/assets/thumbside.png',
+  4: '/../components/assets/thumbupleft.png',
+  5: '/../components/assets/thumbup.png'
 };
 
 class Map extends React.Component {

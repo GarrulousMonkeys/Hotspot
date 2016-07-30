@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import CollectionModel from '../components/CollectionModel';
+import NearbyModel from '../components/NearbyModel';
+import ProfileSpotsModel from '../components/ProfileSpotsModel';
 import FilterItem from '../components/FilterItem';
 import * as Actions from '../actions';
 import CollectionDetailModel from '../components/CollectionDetailModel';
@@ -15,20 +17,13 @@ class Panel extends React.Component {
     this.props.actions.fetchCollection();
   }
 
-  heading() {
-    if (this.props.panelMode === 'filter') {
-      return (<h2>categories</h2>);
-    } else {
-      return (<h2>hello, {this.props.user}</h2>);
-    }
-  }
-
   render() {
-    let panelItems;
-
+    let panelItems, heading;
+    console.log(this.props.isOpen);
     this.props.actions.createFilters(this.props.totalCollection, this.props.filters);
 
     if (this.props.panelMode === 'filter') {
+      heading = <h2>categories</h2>
       panelItems = this.props.filters.map((filter) => {
         return (<FilterItem filter={filter}
                             appliedFilters={this.props.filterSelected}
@@ -37,15 +32,33 @@ class Panel extends React.Component {
                             key={filter}/>);
       });
     } else if (this.props.filteredCollection.length !== 0) {
+      heading = <h2>hello, {this.props.user}</h2>
       panelItems = this.props.filteredCollection.map((restaurant) => {
         return (<CollectionModel item={restaurant} key={restaurant.name}/>);
       });
-    } else {
+    } else if (this.props.panelMode === 'collection') {
+      heading = <h2>spots</h2>
       panelItems = this.props.totalCollection.map((restaurant) => {
         return (<CollectionModel item={restaurant}
           viewCollectionItem={this.props.actions.viewCollectionItem}
           key={restaurant.name}/>);
       });
+    } else if (this.props.panelMode === 'profile') {
+      heading = <div><h2>hello, {this.props.user}</h2><img className='fire' src='../components/Assets/fire.png'/><h3>your spots</h3></div>
+      panelItems = this.props.totalCollection.map((restaurant) => {
+        return (<ProfileSpotsModel item={restaurant}
+          viewCollectionItem={this.props.actions.viewCollectionItem}
+          key={restaurant.name}/>);
+      });
+    } else if (this.props.panelMode === 'nearby') {
+      heading = <h2>nearby</h2>
+      panelItems = this.props.nearby.map((restaurant) => {
+        return (<NearbyModel item={restaurant}
+          viewCollectionItem={this.props.actions.viewCollectionItem}
+          key={restaurant.name}/>);
+      });
+    } else {
+      return (<h1></h1>);
     }
     return (
       <Menu id={ 'panel' }
@@ -55,7 +68,7 @@ class Panel extends React.Component {
             customCrossIcon={ false }
             width={ 400 }
             isOpen={ this.props.isOpen }>
-        {this.heading()}
+        {heading}
         {panelItems}
       </Menu>
     );
@@ -67,6 +80,7 @@ function mapStateToProps(state) {
     totalCollection: state.CollectionRestaurantsFilters.collection,
     filters: state.FilterSelectedRestaurants.filters,
     user: state.User.User,
+    nearby: state.Nearby.Collection,
     filterSelected: state.FilterSelectedRestaurants.filterSelected,
     filteredCollection: state.FilterSelectedRestaurants.filteredRestaurants,
     panelMode: state.PanelMode.panelMode,
