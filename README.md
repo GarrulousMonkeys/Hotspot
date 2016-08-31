@@ -1,4 +1,5 @@
 # Hotspot
+ > Map-based service that aggregates ratings of local businesses
 
 ## Installation and setup requirements
 * Install required dependencies
