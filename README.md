@@ -1,5 +1,4 @@
-# Shifted Maps – Are there networks in maps?
-One-click solution for personalized results.
+# Hotspot
 
 ## Installation and setup requirements
 * Install required dependencies
@@ -32,9 +31,6 @@ One-click solution for personalized results.
 ## Running dev server with hot reloading
 `npm run resetdb` in console to set up new DB with schema provided
 `npm run server` in console
-
-## Deploying to Heroku
-* TODO
 
 ## Frontend
 * Frontend framework is built using React.js, Redux, and Webpack.
